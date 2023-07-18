@@ -7,7 +7,8 @@ const xss = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const app = express();
 const port = process.env.PORT || 1992;
-
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
 const { connectDB } = require("./src/db/connect");
 const products = require("./src/routes/products");
 const tasks = require("./src/routes/task");
@@ -24,7 +25,7 @@ const limiter = rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
-// Apply the rate limiting middleware to all requests
+const swaggerDocument = YAML.load("./swagger.yaml");
 
 app.use(express.json());
 app.use(cors());
@@ -35,9 +36,11 @@ app.set("trust proxy", 1);
 app.use(express.static("src/public"));
 app.use(express.urlencoded({ extended: false }));
 // routes
+
 app.get("/", (req, res) => {
-  res.send("<h4>Welcome to Jobs API</h4>");
+  res.send("<h4>Welcome to Jobs <a href='/api-docs'> API </a> </h4>");
 });
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use("/tasks", tasks);
 app.use("/api/v1", products);
 app.use("/api/v1/auth", auth);

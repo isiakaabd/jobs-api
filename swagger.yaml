@@ -1,0 +1,251 @@
+openapi: 3.0.0
+info:
+  title: Job-API
+  description: Endpoints to assist developers and other professionals to document their jobs hunt in a progressive way
+  contact:
+    name: Remlad
+    url: https://isiakaabd.netlify.app
+    email: isiakaabd@gmail.com
+  version: "1.0"
+servers:
+  - url: http://localhost:1992/api/v1
+    variables: {}
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: login
+      operationId: login
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/loginrequest"
+                - example:
+                    email: Sule20@gmail.com
+                    password: "123456789"
+            example:
+              email: Sule20@gmail.com
+              password: "123456789"
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register
+      operationId: Register
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/RegisterRequest"
+                - example:
+                    email: Sule20@gmail.com
+                    password: 123456789
+            example:
+              email: Sule20@gmail.com
+              password: 123456789
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security: []
+  /jobs:
+    get:
+      tags:
+        - jobs
+      summary: Get Jobs
+      operationId: GetJobs
+      parameters: []
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    post:
+      tags:
+        - jobs
+      summary: Create Jobs
+      operationId: CreateJobs
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreateJobsRequest"
+                - example:
+                    position: FE Engineer
+                    company: Twitter
+            example:
+              position: FE Engineer
+              company: Twitter
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /jobs/{id}:
+    get:
+      tags:
+        - jobs
+      summary: Get Job
+      operationId: GetJob
+
+      parameters:
+        - in: path
+          name: id # Note the name is the same as in the path
+          required: true
+          schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+  /jobs/{jobId}:
+    delete:
+      tags:
+        - jobs
+      summary: Delete Job
+      operationId: DeleteJob
+      parameters:
+        - in: path
+          name: jobId # Note the name is the same as in the path
+          required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+    patch:
+      tags:
+        - jobs
+      summary: Update Job
+      operationId: UpdateJob
+      parameters: []
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UpdateJobRequest"
+                - example:
+                    password: "12345698000"
+                    name: Fasasi Nafisat
+                    email: fasasinafisat1@gmail.com
+            example:
+              password: "12345698000"
+              name: Fasasi Nafisat
+              email: fasasinafisat1@gmail.com
+        required: true
+      responses:
+        "200":
+          description: ""
+          headers: {}
+      deprecated: false
+      security:
+        - bearer: []
+components:
+  schemas:
+    loginrequest:
+      title: loginrequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: Sule20@gmail.com
+        password: "123456789"
+    RegisterRequest:
+      title: RegisterRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: Sule20@gmail.com
+        password: 123456789
+    CreateJobsRequest:
+      title: CreateJobsRequest
+      required:
+        - position
+        - company
+      type: object
+      properties:
+        position:
+          type: string
+        company:
+          type: string
+
+      example:
+        position: FE Engineer
+        company: Twitter
+    DeleteJobRequest:
+      title: DeleteJobRequest
+      required:
+        - id
+      type: string
+      properties:
+        id:
+          type: string
+      example:
+        id: "12345698000"
+    UpdateJobRequest:
+      title: UpdateJobRequest
+      required:
+        - id
+      type: string
+      properties:
+        id:
+          type: string
+      example:
+        password: "12345698000"
+        name: Fasasi Nafisat
+        email: fasasinafisat1@gmail.com
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+  - name: Auth
+    description: ""
+  - name: jobs
+    description: ""
