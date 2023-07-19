@@ -37,9 +37,6 @@ app.use(express.static("src/public"));
 app.use(express.urlencoded({ extended: false }));
 // routes
 
-app.get("/", (req, res) => {
-  res.send("<h4>Welcome to Jobs <a href='/api-docs'> API </a> </h4>");
-});
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use("/tasks", tasks);
 app.use("/api/v1", products);
