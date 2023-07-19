@@ -8,7 +8,7 @@ info:
     email: isiakaabd@gmail.com
   version: "1.0"
 servers:
-  - url: http://localhost:1992/api/v1
+  - url: https://jobs-api-2sz9.onrender.com/api/v1
     variables: {}
 paths:
   /auth/login:

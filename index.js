@@ -34,7 +34,7 @@ app.use(helmet());
 app.use(xss());
 app.use(limiter);
 app.set("trust proxy", 1);
-app.use(express.static("src/public"));
+app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 // routes
 
