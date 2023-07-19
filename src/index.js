@@ -10,14 +10,14 @@ const app = express();
 const port = process.env.PORT || 1992;
 const swaggerUI = require("swagger-ui-express");
 const YAML = require("yamljs");
-const { connectDB } = require("./src/db/connect");
-const products = require("./src/routes/products");
-const tasks = require("./src/routes/task");
-const jobs = require("./src/routes/jwt");
-const auth = require("./src/routes/auth");
+const { connectDB } = require("./db/connect");
+const products = require("./routes/products");
+const tasks = require("./routes/task");
+const jobs = require("./routes/jwt");
+const auth = require("./routes/auth");
 
-const errorHandlerMiddleware = require("./src/middleware/errorHandler");
-const authenticationMiddleware = require("./src/middleware/auth");
+const errorHandlerMiddleware = require("./middleware/errorHandler");
+const authenticationMiddleware = require("./middleware/auth");
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
